@@ -987,7 +987,7 @@ format_journal:
 			 * external journal.
 			 */
 			if ((ext_journal_opt == create_journal_only)
-			    && volume_label) {
+			    && volume_label[0]) {
 				label_ptr = volume_label;
 			}
 			rc = jfs_logform(fp, aggr_block_size,
