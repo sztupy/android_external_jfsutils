@@ -271,16 +271,18 @@ FILE *open_by_label(uuid_t uuid, int is_label, int is_log, char *dev, int *in_us
 	/* Not found yet.  Check for lvm volumes */
 	vg_dir = opendir("/proc/lvm/VGs");
 	if (vg_dir) {
-		seekdir(vg_dir, 2);
+		//seekdir(vg_dir, 2);
 		while ((vg_ent = readdir(vg_dir))) {
+      if ((strcmp(vg_ent->d_name,".")==0) || (strcmp(vg_ent->d_name,"..")==0)) continue;
 			sprintf(lv_dirname, "/proc/lvm/VGs/%s/LVs", vg_ent->d_name);
 			lv_dir = opendir(lv_dirname);
 			if (lv_dir == NULL) {
 				printf("can't open %s\n", lv_dirname);
 				continue;
 			}
-			seekdir(lv_dir, 2);
+			//seekdir(lv_dir, 2);
 			while ((lv_ent = readdir(lv_dir))) {
+        if ((strcmp(vg_ent->d_name,".")==0) || (strcmp(vg_ent->d_name,"..")==0)) continue;
 				sprintf(device, "/dev/%s/%s", vg_ent->d_name, lv_ent->d_name);
 				fp = open_check_label(device, uuid, is_label,
 						      is_log, in_use);

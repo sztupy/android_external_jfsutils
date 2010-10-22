@@ -682,7 +682,7 @@ int main(int argc, char *argv[])
 	if (argc && **argv)
 		program_name = *argv;
 	else
-		program_name = "jfs_mkfs";
+		program_name = "mkfs.jfs";
 
 	printf("%s version %s, %s\n", program_name, VERSION, JFSUTILS_DATE);
 
@@ -802,7 +802,28 @@ int main(int argc, char *argv[])
 	}
 
 	/* Is the device mounted?  We will NOT format a mounted device! */
+#ifdef HAVE_MNTENT_H
 	rc = Is_Device_Mounted(device_name);
+#else
+#ifdef HAVE_GETMNTINFO
+	rc = Is_Device_Mounted(device_name);
+#else
+  // we don't have either of them, so we check if the block device is busy or not
+  struct stat st_buf;
+  int fd;
+  rc = 0;
+  if ((stat(device_name, &st_buf) != 0) || !S_ISBLK(st_buf.st_mode)) {
+        rc = EBUSY;
+  } else {
+    fd = open(device_name, O_RDONLY | O_EXCL);
+    if (fd < 0) {
+        if (errno == EBUSY)
+          rc = EBUSY;
+      } else
+        close(fd);
+  }
+#endif
+#endif
 	if (rc) {
 		message_user(rc, NULL, 0, JFS_MSG);
 		return ERROR_INVALID_ACCESS;

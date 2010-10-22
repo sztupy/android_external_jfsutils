@@ -2,9 +2,7 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
 /* Define to 1 if you have the <endian.h> header file. */
-#ifdef HAVE_ENDIAN_H
 #undef HAVE_ENDIAN_H
-#endif
 #define HAVE_ENDIAN_H 1
 
 /* Define to 1 if you have the <fcntl.h> header file. */
@@ -17,7 +15,7 @@
 #define HAVE_GETCWD 1
 
 /* Define to 1 if you have the `getmntinfo' function. */
-/* #undef HAVE_GETMNTINFO */
+// #define HAVE_GETMNTINFO 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
@@ -32,13 +30,13 @@
 #define HAVE_MEMORY_H 1
 
 /* Define to 1 if you have the <mntent.h> header file. */
-//#define HAVE_MNTENT_H 1
+// #define HAVE_MNTENT_H 1
 
 /* Define to 1 if you have the `posix_memalign' function. */
-//#define HAVE_POSIX_MEMALIGN 1
+//fine HAVE_POSIX_MEMALIGN 1
 
 /* Define to 1 if you have the <stdbool.h> header file. */
-#define HAVE_STDBOOL_H 1
+//#define HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -78,7 +76,7 @@
 #define HAVE_SYS_PARAM_H 1
 
 /* Define to 1 if you have the <sys/statvfs.h> header file. */
-//#define HAVE_SYS_STATVFS_H 1
+// #define HAVE_SYS_STATVFS_H 1
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -123,7 +121,7 @@
 #define VERSION "1.1.14"
 
 /* Number of bits in a file offset, on hosts where this is settable. */
-#define _FILE_OFFSET_BITS 64
+/* #undef _FILE_OFFSET_BITS */
 
 /* Define to 1 to make fseeko visible on some hosts (e.g. glibc 2.2). */
 /* #undef _LARGEFILE_SOURCE */
@@ -139,8 +137,6 @@
 #ifndef __cplusplus
 /* #undef inline */
 #endif
-
-#define MOUNTED "/etc/mtab"
 
 /* Define to `int' if <sys/types.h> does not define. */
 /* #undef mode_t */
