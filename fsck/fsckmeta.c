@@ -1536,9 +1536,19 @@ int validate_repair_superblock()
 				fsck_send_msg(fsck_BDSBBTHCRRPT);
 			}
 
+#ifdef HAVE_MNTENT_H
 			if (Is_Device_Type_JFS(Vol_Label) == MSG_JFS_NOT_JFS) {
 				fsck_send_msg(fsck_NOTJFSINFSTAB, Vol_Label);
 			}
+#else
+#ifdef HAVE_GETMNTINFO
+			if (Is_Device_Type_JFS(Vol_Label) == MSG_JFS_NOT_JFS) {
+				fsck_send_msg(fsck_NOTJFSINFSTAB, Vol_Label);
+			}
+#else
+#warning "Can't check JFS device type"
+#endif
+#endif
 
 		}
 	}

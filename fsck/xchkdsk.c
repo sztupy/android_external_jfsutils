@@ -1457,6 +1457,9 @@ int initial_processing(int argc, char **argv)
 
 	/* parse the parms and record them in the aggregate wsp record */
 	parse_parms(argc, argv);
+#if !defined HAVE_MNTENT_H && !defined HAVE_GETMNTINFO
+#warning "Can't check whether device is mounted or not"
+#else
 	if ((pi_rc = Is_Device_Mounted(Vol_Label)) != FSCK_OK) {
 		switch (pi_rc) {
 		case MSG_JFS_VOLUME_IS_MOUNTED_RO:
@@ -1508,7 +1511,7 @@ int initial_processing(int argc, char **argv)
 			break;
 		}
 	}
-
+#endif
 
 	/* the parms are good */
 	pi_rc = verify_parms();
